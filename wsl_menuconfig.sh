@@ -1,8 +1,10 @@
 #!/bin/bash
 
 cpus=`expr $(nproc --all)`
+CT_BIN=/home/pwnrazr/dev-stuff/aosp-clang-15/bin/
 
 make wsl_defconfig \
+	PATH=${CT_BIN}:${PATH} \
         O=out \
         -j${cpus} \
         AR="llvm-ar" \

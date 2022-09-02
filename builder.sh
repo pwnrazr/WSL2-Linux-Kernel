@@ -2,7 +2,10 @@
 
 cpus=`expr $(nproc --all)`
 
+CT_BIN=/home/pwnrazr/dev-stuff/aosp-clang-15/bin/
+
 make wsl_defconfig \
+	PATH=${CT_BIN}:${PATH} \
 	O=out \
 	-j${cpus} \
         AR="llvm-ar" \
@@ -17,10 +20,13 @@ make wsl_defconfig \
         LDLLD="ld.lld" \
         HOSTCC="clang" \
         HOSTCXX="clang++" \
-        CC="clang" \
-        CXX="clang++"
+        LLVM=1 \
+        LLVM_IAS=1 \
+        CC="ccache clang" \
+        CXX="ccache clang++"
 
 make O=out \
+	PATH=${CT_BIN}:${PATH} \
 	-j${cpus} \
         AR="llvm-ar" \
         AS="llvm-as" \
@@ -34,5 +40,7 @@ make O=out \
         LDLLD="ld.lld" \
         HOSTCC="clang" \
         HOSTCXX="clang++" \
-        CC="clang" \
-        CXX="clang++"
+        LLVM=1 \
+        LLVM_IAS=1 \
+        CC="ccache clang" \
+        CXX="ccache clang++"
