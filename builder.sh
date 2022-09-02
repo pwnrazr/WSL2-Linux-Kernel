@@ -1,7 +1,10 @@
 #!/bin/bash
 
+cpus=`expr $(nproc --all)`
+
 make wsl_defconfig \
 	O=out \
-	-j12
+	-j${cpus}
 
-make O=out
+make O=out \
+	-j${cpus}
