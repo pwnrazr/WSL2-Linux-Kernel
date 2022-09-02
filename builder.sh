@@ -6,7 +6,9 @@ cpus=`expr $(nproc --all)`
 
 make wsl_defconfig \
 	O=out \
-	-j${cpus}
+	-j${cpus} \
+	CC="ccache gcc"
 
 make O=out \
-	-j${cpus}
+	-j${cpus} \
+	CC="ccache gcc"
