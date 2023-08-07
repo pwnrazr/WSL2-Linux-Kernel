@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/zcommon
-obj = /home/pwnrazr/dev-stuff/zfs/module/zcommon
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/zcommon
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/zcommon
 endif
 
 MODULE := zcommon
@@ -26,3 +26,7 @@ $(MODULE)-$(CONFIG_X86) += zfs_fletcher_intel.o
 $(MODULE)-$(CONFIG_X86) += zfs_fletcher_sse.o
 $(MODULE)-$(CONFIG_X86) += zfs_fletcher_avx512.o
 $(MODULE)-$(CONFIG_ARM64) += zfs_fletcher_aarch64_neon.o
+
+ifeq ($(CONFIG_ARM64),y)
+CFLAGS_REMOVE_zfs_fletcher_aarch64_neon.o += -mgeneral-regs-only
+endif

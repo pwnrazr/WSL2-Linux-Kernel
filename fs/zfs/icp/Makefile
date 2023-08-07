@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/icp
-obj = /home/pwnrazr/dev-stuff/zfs/module/icp
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/icp
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/icp
 icp_include = $(src)/include
 else
 icp_include = $(srctree)/$(src)/include

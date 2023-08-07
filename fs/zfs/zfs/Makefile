@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/zfs
-obj = /home/pwnrazr/dev-stuff/zfs/module/zfs
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/zfs
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/zfs
 mfdir = $(obj)
 else
 mfdir = $(srctree)/$(src)
@@ -152,6 +152,11 @@ $(MODULE)-$(CONFIG_PPC64) += vdev_raidz_math_powerpc_altivec.o
 
 ifeq ($(CONFIG_ALTIVEC),y)
 $(obj)/vdev_raidz_math_powerpc_altivec.o: c_flags += -maltivec
+endif
+
+ifeq ($(CONFIG_ARM64),y)
+CFLAGS_REMOVE_vdev_raidz_math_aarch64_neon.o += -mgeneral-regs-only
+CFLAGS_REMOVE_vdev_raidz_math_aarch64_neonx2.o += -mgeneral-regs-only
 endif
 
 include $(mfdir)/../os/linux/zfs/Makefile

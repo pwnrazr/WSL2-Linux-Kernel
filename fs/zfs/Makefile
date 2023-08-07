@@ -42,10 +42,10 @@ while getopts :deiI:j:knqrstw flag; do \
 done; \
 echo $$fmakeflags \
 )
-FMAKEFLAGS = -C /home/pwnrazr/dev-stuff/zfs/module -f Makefile.bsd $(shell $(getflags))
+FMAKEFLAGS = -C /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module -f Makefile.bsd $(shell $(getflags))
 
-ifneq (/home/pwnrazr/dev-stuff/zfs/module,/home/pwnrazr/dev-stuff/zfs/module)
-FMAKEFLAGS += MAKEOBJDIR=/home/pwnrazr/dev-stuff/zfs/module
+ifneq (/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module,/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module)
+FMAKEFLAGS += MAKEOBJDIR=/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module
 endif
 
 FMAKE = env -u MAKEFLAGS make $(FMAKEFLAGS)
@@ -82,9 +82,9 @@ modules_install-Linux:
 	$(MAKE) -C /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel M="$$PWD" modules_install \
 		INSTALL_MOD_PATH=$(INSTALL_MOD_PATH) \
 		INSTALL_MOD_DIR=$(INSTALL_MOD_DIR) \
-		KERNELRELEASE=5.15.90.1-microsoft-standard-WSL2+
+		KERNELRELEASE=5.15.90.4-microsoft-standard-WSL2+
 	@# Remove extraneous build products when packaging
-	kmoddir=$(INSTALL_MOD_PATH)/lib/modules/5.15.90.1-microsoft-standard-WSL2+; \
+	kmoddir=$(INSTALL_MOD_PATH)/lib/modules/5.15.90.4-microsoft-standard-WSL2+; \
 	if [ -n "$(DESTDIR)" ]; then \
 		find $$kmoddir -name 'modules.*' -delete; \
 	fi
@@ -94,11 +94,11 @@ modules_install-Linux:
 	@# Naturally, depmod is less than amused by this.
 	@# So if we find it missing or with one of these present,
 	@# we check for the alternate path for the System.map
-	sysmap=$(INSTALL_MOD_PATH)/boot/System.map-5.15.90.1-microsoft-standard-WSL2+; \
+	sysmap=$(INSTALL_MOD_PATH)/boot/System.map-5.15.90.4-microsoft-standard-WSL2+; \
 	{ [ -f "$$sysmap" ] && [ $$(wc -l < "$$sysmap") -ge 100 ]; } || \
-		sysmap=$(INSTALL_MOD_PATH)/usr/lib/debug/boot/System.map-5.15.90.1-microsoft-standard-WSL2+; \
+		sysmap=$(INSTALL_MOD_PATH)/usr/lib/debug/boot/System.map-5.15.90.4-microsoft-standard-WSL2+; \
 	if [ -f $$sysmap ]; then \
-		depmod -ae -F $$sysmap 5.15.90.1-microsoft-standard-WSL2+; \
+		depmod -ae -F $$sysmap 5.15.90.4-microsoft-standard-WSL2+; \
 	fi
 
 modules_install-FreeBSD:
@@ -109,7 +109,7 @@ modules_install: modules_install-Linux
 
 modules_uninstall-Linux:
 	@# Uninstall the kernel modules
-	kmoddir=$(INSTALL_MOD_PATH)/lib/modules/5.15.90.1-microsoft-standard-WSL2+; \
+	kmoddir=$(INSTALL_MOD_PATH)/lib/modules/5.15.90.4-microsoft-standard-WSL2+; \
 	for objdir in $(ZFS_MODULES); do \
 		$(RM) -R $$kmoddir/$(INSTALL_MOD_DIR)/$$objdir; \
 	done

@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/spl
-obj = /home/pwnrazr/dev-stuff/zfs/module/spl
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/spl
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/spl
 mfdir = $(obj)
 else
 mfdir = $(srctree)/$(src)

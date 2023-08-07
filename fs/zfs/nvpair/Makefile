@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/nvpair
-obj = /home/pwnrazr/dev-stuff/zfs/module/nvpair
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/nvpair
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/nvpair
 endif
 
 MODULE := znvpair

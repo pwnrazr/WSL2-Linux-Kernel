@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/lua
-obj = /home/pwnrazr/dev-stuff/zfs/module/lua
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/lua
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/lua
 endif
 
 MODULE := zlua

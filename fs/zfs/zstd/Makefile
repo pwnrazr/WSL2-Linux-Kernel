@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/zstd
-obj = /home/pwnrazr/dev-stuff/zfs/module/zstd
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/zstd
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/zstd
 zstd_include = $(src)/include
 else
 zstd_include = $(srctree)/$(src)/include

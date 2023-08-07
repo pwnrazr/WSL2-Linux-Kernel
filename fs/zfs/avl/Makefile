@@ -1,6 +1,6 @@
 ifneq ($(KBUILD_EXTMOD),)
-src = /home/pwnrazr/dev-stuff/zfs/module/avl
-obj = /home/pwnrazr/dev-stuff/zfs/module/avl
+src = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/avl
+obj = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/module/avl
 endif
 
 MODULE := zavl

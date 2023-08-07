@@ -125,6 +125,7 @@ am__aclocal_m4_deps = $(top_srcdir)/config/always-arch.m4 \
 	$(top_srcdir)/config/kernel-commit-metadata.m4 \
 	$(top_srcdir)/config/kernel-config-defined.m4 \
 	$(top_srcdir)/config/kernel-copy-from-user-inatomic.m4 \
+	$(top_srcdir)/config/kernel-cpu_has_feature.m4 \
 	$(top_srcdir)/config/kernel-current-time.m4 \
 	$(top_srcdir)/config/kernel-declare-event-class.m4 \
 	$(top_srcdir)/config/kernel-dentry-alias.m4 \
@@ -136,6 +137,8 @@ am__aclocal_m4_deps = $(top_srcdir)/config/always-arch.m4 \
 	$(top_srcdir)/config/kernel-fallocate.m4 \
 	$(top_srcdir)/config/kernel-file-dentry.m4 \
 	$(top_srcdir)/config/kernel-file-inode.m4 \
+	$(top_srcdir)/config/kernel-filemap.m4 \
+	$(top_srcdir)/config/kernel-flush_dcache_page.m4 \
 	$(top_srcdir)/config/kernel-fmode-t.m4 \
 	$(top_srcdir)/config/kernel-follow-down-one.m4 \
 	$(top_srcdir)/config/kernel-fpu.m4 \
@@ -157,6 +160,7 @@ am__aclocal_m4_deps = $(top_srcdir)/config/always-arch.m4 \
 	$(top_srcdir)/config/kernel-inode-lookup.m4 \
 	$(top_srcdir)/config/kernel-inode-set-flags.m4 \
 	$(top_srcdir)/config/kernel-inode-set-iversion.m4 \
+	$(top_srcdir)/config/kernel-inode-setattr.m4 \
 	$(top_srcdir)/config/kernel-inode-times.m4 \
 	$(top_srcdir)/config/kernel-insert-inode-locked.m4 \
 	$(top_srcdir)/config/kernel-is_owner_or_cap.m4 \
@@ -180,6 +184,7 @@ am__aclocal_m4_deps = $(top_srcdir)/config/always-arch.m4 \
 	$(top_srcdir)/config/kernel-proc-operations.m4 \
 	$(top_srcdir)/config/kernel-put-link.m4 \
 	$(top_srcdir)/config/kernel-readpages.m4 \
+	$(top_srcdir)/config/kernel-reclaim_state.m4 \
 	$(top_srcdir)/config/kernel-rename.m4 \
 	$(top_srcdir)/config/kernel-revalidate-disk-size.m4 \
 	$(top_srcdir)/config/kernel-rw.m4 \
@@ -215,6 +220,7 @@ am__aclocal_m4_deps = $(top_srcdir)/config/always-arch.m4 \
 	$(top_srcdir)/config/kernel-vfs-rw-iterate.m4 \
 	$(top_srcdir)/config/kernel-vfs-set_page_dirty.m4 \
 	$(top_srcdir)/config/kernel-wait.m4 \
+	$(top_srcdir)/config/kernel-writepage_t.m4 \
 	$(top_srcdir)/config/kernel-xattr-handler.m4 \
 	$(top_srcdir)/config/kernel-zero_page.m4 \
 	$(top_srcdir)/config/kernel-zlib.m4 \
@@ -281,9 +287,9 @@ am__can_run_installinfo = \
 am__kernel_HEADERS_DIST = acl.h atomic.h byteorder.h callb.h callo.h \
 	cmn_err.h condvar.h cred.h ctype.h debug.h disp.h dkio.h \
 	errno.h fcntl.h file.h inttypes.h isa_defs.h kmem_cache.h \
-	kmem.h kstat.h list.h mod_os.h mutex.h param.h processor.h \
-	proc.h procfs_list.h random.h rwlock.h shrinker.h sid.h \
-	signal.h simd.h stat.h strings.h sunddi.h sysmacros.h \
+	kmem.h kstat.h list.h misc.h mod_os.h mutex.h param.h \
+	processor.h proc.h procfs_list.h random.h rwlock.h shrinker.h \
+	sid.h signal.h simd.h stat.h strings.h sunddi.h sysmacros.h \
 	systeminfo.h taskq.h thread.h time.h timer.h trace.h \
 	trace_spl.h trace_taskq.h tsd.h types32.h types.h uio.h user.h \
 	vfs.h vmem.h vmsystm.h vnode.h wait.h wmsum.h zmod.h zone.h
@@ -335,7 +341,7 @@ am__define_uniq_tagged_files = \
   done | $(am__uniquify_input)`
 am__DIST_COMMON = $(srcdir)/Makefile.in
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} '/home/pwnrazr/dev-stuff/zfs/config/missing' aclocal-1.16
+ACLOCAL = ${SHELL} '/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/config/missing' aclocal-1.16
 ALIEN = alien
 ALIEN_MAJOR = 8
 ALIEN_MINOR = 95
@@ -348,9 +354,9 @@ ASAN_CFLAGS =
 ASAN_ENABLED = no
 ASAN_LDFLAGS = 
 ASAN_ZFS = _without_asan
-AUTOCONF = ${SHELL} '/home/pwnrazr/dev-stuff/zfs/config/missing' autoconf
-AUTOHEADER = ${SHELL} '/home/pwnrazr/dev-stuff/zfs/config/missing' autoheader
-AUTOMAKE = ${SHELL} '/home/pwnrazr/dev-stuff/zfs/config/missing' automake-1.16
+AUTOCONF = ${SHELL} '/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/config/missing' autoconf
+AUTOHEADER = ${SHELL} '/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/config/missing' autoheader
+AUTOMAKE = ${SHELL} '/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/config/missing' automake-1.16
 AWK = gawk
 CC = gcc
 CCAS = gcc
@@ -379,7 +385,6 @@ DEBUG_KMEM_ZFS = _without_debug_kmem
 DEBUG_LDFLAGS = 
 DEBUG_ZFS = _without_debug
 DEFAULT_INIT_NFS_SERVER = nfs
-DEFAULT_INIT_SCRIPT = lsb
 DEFAULT_INIT_SHELL = /bin/sh
 DEFAULT_PACKAGE = deb
 DEFINE_PAM = 
@@ -431,6 +436,7 @@ KERNEL_DEBUG_CPPFLAGS = -UDEBUG -DNDEBUG
 KERNEL_LD = 
 KERNEL_LLVM = 
 KERNEL_MAKE = 
+KERNEL_NO_IPA_SRA = -fno-ipa-sra
 LCOV = 
 LD = /usr/bin/ld -m elf_x86_64
 LDFLAGS = 
@@ -465,7 +471,7 @@ LIBUUID_PC = uuid
 LINUX = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel
 LINUX_OBJ = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel
 LINUX_SYMBOLS = NONE
-LINUX_VERSION = 5.15.90.1-microsoft-standard-WSL2+
+LINUX_VERSION = 5.15.90.4-microsoft-standard-WSL2+
 LIPO = 
 LN_S = ln -s
 LTLIBICONV = -liconv
@@ -473,7 +479,7 @@ LTLIBINTL =
 LTLIBOBJS = 
 LT_SYS_LIBRARY_PATH = 
 MAINT = #
-MAKEINFO = ${SHELL} '/home/pwnrazr/dev-stuff/zfs/config/missing' makeinfo
+MAKEINFO = ${SHELL} '/home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/config/missing' makeinfo
 MANIFEST_TOOL = :
 MKDIR_P = /usr/bin/mkdir -p
 MSGFMT = /usr/bin/msgfmt
@@ -494,28 +500,28 @@ OTOOL64 =
 PACKAGE = zfs
 PACKAGE_BUGREPORT = 
 PACKAGE_NAME = zfs
-PACKAGE_STRING = zfs 2.1.9
+PACKAGE_STRING = zfs 2.1.12
 PACKAGE_TARNAME = zfs
 PACKAGE_URL = 
-PACKAGE_VERSION = 2.1.9
+PACKAGE_VERSION = 2.1.12
 PARALLEL = 
 PATH_SEPARATOR = :
 PKG_CONFIG = /usr/bin/pkg-config
 PKG_CONFIG_LIBDIR = 
 PKG_CONFIG_PATH = 
 POSUB = po
-PYTHON = python3
-PYTHON_CPPFLAGS = 
+PYTHON = /usr/bin/python3.10
+PYTHON_CPPFLAGS = -I/usr/include/python3.10
 PYTHON_EXEC_PREFIX = ${exec_prefix}
-PYTHON_EXTRA_LDFLAGS = 
-PYTHON_EXTRA_LIBS = 
-PYTHON_LIBS = 
+PYTHON_EXTRA_LDFLAGS = -Xlinker -export-dynamic -Wl,-O1 -Wl,-Bsymbolic-functions
+PYTHON_EXTRA_LIBS = -lcrypt -ldl  -lm -lm
+PYTHON_LIBS = -L/usr/lib/x86_64-linux-gnu -lpython3.10
 PYTHON_PLATFORM = linux
 PYTHON_PREFIX = ${prefix}
 PYTHON_SHEBANG = python3
-PYTHON_SITE_PKG = 
+PYTHON_SITE_PKG = /usr/lib/python3/dist-packages
 PYTHON_VERSION = 3.10
-PYZFS_ENABLED = no
+PYZFS_ENABLED = yes
 QAT_OBJ = 
 QAT_SRC = 
 QAT_SYMBOLS = 
@@ -545,7 +551,7 @@ TARGET_CPU = x86_64
 TEST_JOBS = 12
 USE_NLS = yes
 VENDOR = ubuntu
-VERSION = 2.1.9
+VERSION = 2.1.12
 WITH_DEBUG = 
 WITH_INVARIANTS = 
 XGETTEXT = /usr/bin/xgettext
@@ -554,10 +560,10 @@ XGETTEXT_EXTRA_OPTIONS =
 ZFS_CONFIG = all
 ZFS_INIT_SYSTEMD = systemd
 ZFS_INIT_SYSV = init.d
-ZFS_META_ALIAS = zfs-2.1.9-1
+ZFS_META_ALIAS = zfs-2.1.12-1
 ZFS_META_AUTHOR = OpenZFS
 ZFS_META_DATA = 
-ZFS_META_KVER_MAX = 6.1
+ZFS_META_KVER_MAX = 6.3
 ZFS_META_KVER_MIN = 3.10
 ZFS_META_LICENSE = CDDL
 ZFS_META_LT_AGE = 
@@ -565,16 +571,16 @@ ZFS_META_LT_CURRENT =
 ZFS_META_LT_REVISION = 
 ZFS_META_NAME = zfs
 ZFS_META_RELEASE = 1
-ZFS_META_VERSION = 2.1.9
+ZFS_META_VERSION = 2.1.12
 ZFS_MODULE_LOAD = modules-load.d
 ZLIB_CFLAGS = 
 ZLIB_LIBS = -lz
 ZLIB_PC = zlib
 ZONENAME = echo global
-abs_builddir = /home/pwnrazr/dev-stuff/zfs/include/os/linux/spl/sys
-abs_srcdir = /home/pwnrazr/dev-stuff/zfs/include/os/linux/spl/sys
-abs_top_builddir = /home/pwnrazr/dev-stuff/zfs
-abs_top_srcdir = /home/pwnrazr/dev-stuff/zfs
+abs_builddir = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/include/os/linux/spl/sys
+abs_srcdir = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/include/os/linux/spl/sys
+abs_top_builddir = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update
+abs_top_srcdir = /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update
 ac_ct_AR = ar
 ac_ct_CC = gcc
 ac_ct_DUMPBIN = 
@@ -608,7 +614,7 @@ includedir = /usr/include
 infodir = ${datarootdir}/info
 initconfdir = /etc/default
 initdir = ${prefix}/etc/init.d
-install_sh = ${SHELL} /home/pwnrazr/dev-stuff/zfs/config/install-sh
+install_sh = ${SHELL} /home/pwnrazr/dev-stuff/WSL2-Linux-Kernel/zfs-update/config/install-sh
 libdir = /lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -629,7 +635,7 @@ program_transform_name = s,x,x,
 psdir = ${docdir}
 pyexecdir = ${PYTHON_EXEC_PREFIX}/lib/python3.10/site-packages
 pythondir = ${PYTHON_PREFIX}/lib/python3.10/site-packages
-pythonsitedir = 
+pythonsitedir = /usr/lib/python3/dist-packages
 runstatedir = ${localstatedir}/run
 sbindir = ${exec_prefix}/sbin
 sharedstatedir = ${prefix}/com
@@ -671,6 +677,7 @@ KERNEL_H = \
 	kmem.h \
 	kstat.h \
 	list.h \
+	misc.h \
 	mod_os.h \
 	mutex.h \
 	param.h \
