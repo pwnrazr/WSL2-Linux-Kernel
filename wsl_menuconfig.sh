@@ -3,7 +3,7 @@
 cpus=`expr $(nproc --all)`
 #CT_BIN=/home/pwnrazr/dev-stuff/aosp-clang-15/bin/
 
-make wsl_defconfig \
+make Microsoft/config-wsl \
         O=out \
         -j${cpus} \
 	menuconfig
